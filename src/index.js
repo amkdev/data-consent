@@ -22,6 +22,7 @@ function Consent(options) {
         marketing: null
     };
     this.dialog = null;
+    this.debug = options.debug || false;
 }
 
 Consent.prototype.isAccepted = function(type) {
@@ -88,7 +89,7 @@ Consent.prototype.firePromises = function() {
 Consent.prototype.createDialog = function() {
     var self = this;
     this.dialog = getDialogElement();
-    if (this.dialog === null) {
+    if (this.dialog === null && self.debug) {
         console.error('Failed to create the data consent dialog, <template> missing?');
         return;
     }
@@ -124,7 +125,8 @@ Consent.prototype.createDialog = function() {
     acceptAllCheckbox && (acceptAllCheckbox.checked = allSelected);
 
     this.dialog.addEventListener('close', function() {
-        console.log(self.dialog.returnValue);
+        if (self.debug)
+            console.log(self.dialog.returnValue);
         switch (self.dialog.returnValue) {
         case 'accept':
             Object.keys(self.state).map(function(type, index) {
