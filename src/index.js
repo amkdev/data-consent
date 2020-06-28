@@ -6,7 +6,7 @@ function Consent(options) {
     this.renderBanner = options.banner || false;
     this.essentialByDefault = options.essentialByDefault || true;
     this.storagetype = options.storagetype || 'localstorage'
-    this.storage = new Storage(options.storagetype);
+    this.storage = new Storage(this.storagetype,options.expiration);
     this.listeners = [];
     this.fired = false;
     this.initialize = options.initialize || null;
