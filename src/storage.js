@@ -1,29 +1,29 @@
-function Storage(type) {
+import Cookies from 'js-cookie'
+function Storage(type,expiration) {
     this.type = type || 'localstorage';
-    if (this.type === 'cookie') {
-        this.object = new Cookies();
-    }
+    this.expiration = type || 365;
 };
 
-Storage.prototype.set = function(key, data) {
+Storage.prototype.set = function (key, data) {
     if (this.type === 'localstorage') {
         window.localStorage.setItem(key, JSON.stringify(data));
     } else {
-        this.object.set(key, data);
+        Cookies.set(key, data, { expires: expiration });
     }
 }
 
-Storage.prototype.get = function(key) {
-    if (this.type === 'localstorage') {
-        try {
+Storage.prototype.get = function (key) {
+    try {
+        if (this.type === 'localstorage') {
             var value = window.localStorage.getItem(key);
-            return value && JSON.parse(value);
-        } catch (e) {
-            return false;
+        } else {
+            var value = Cookies.get(key);
         }
-    } else {
-        return this.object.get(key);
+        return value && JSON.parse(value);
+    } catch (e) {
+        return false;
     }
+
 }
 
 export default Storage;

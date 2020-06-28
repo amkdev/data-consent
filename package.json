@@ -18,7 +18,8 @@
   "repository": "github:qbus-agentur/data-consent",
   "dependencies": {
     "dialog-polyfill": "^0.5.0",
-    "es6-promise": "^4.2.8"
+    "es6-promise": "^4.2.8",
+    "js-cookie": "^2.2.1"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^7.1.1",

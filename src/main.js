@@ -2,7 +2,9 @@ var Consent = require('./index').default;
 
 var consent = new Consent({
     banner: false,
-    functional: false
+    functional: false,
+    storagetype: 'cookie',
+    expiration: 90
 });
 
 consent.isAccepted().then(function(state) {
