@@ -1,14 +1,15 @@
 import Cookies from 'js-cookie'
+
 function Storage(type,expiration) {
     this.type = type || 'localstorage';
-    this.expiration = type || 365;
+    this.expiration = expiration || 365;
 };
 
 Storage.prototype.set = function (key, data) {
     if (this.type === 'localstorage') {
         window.localStorage.setItem(key, JSON.stringify(data));
     } else {
-        Cookies.set(key, data, { expires: expiration });
+        Cookies.set(key, data, { expires: this.expiration });
     }
 }
 
